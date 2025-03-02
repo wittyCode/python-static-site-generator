@@ -1,8 +1,17 @@
 import unittest
-from markdownconverter import markdown_to_html_node
+from markdownconverter import markdown_to_html_node, extract_title
 from markdownsplitter import BlockType
 
 class TestMarkdownConverter(unittest.TestCase):
+
+    def test_extract_title(self):
+        md = """
+# Header Hello World  
+
+- list item
+        """
+        actual = extract_title(md)
+        self.assertEqual("Header Hello World", actual)
 
     def test_paragraphs(self):
         md = """

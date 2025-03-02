@@ -3,6 +3,16 @@ from htmlnode import ParentNode
 from node_splitter import text_to_textnode
 from textnode import text_node_to_html_node, TextNode, TextType
 
+def extract_title(markdown):
+    stripped = markdown.strip(" \n")
+    lines = stripped.split("\n")
+    first_line = lines[0]
+    check_if_heading = block_to_block_type(first_line)
+    if check_if_heading != BlockType.HEADING:
+        raise Exception("markdown needs to start with heading line")
+    return first_line.strip("# ")
+
+
 def markdown_to_html_node(markdown):
     blocks = markdown_to_blocks(markdown)
     children_blocks = []
